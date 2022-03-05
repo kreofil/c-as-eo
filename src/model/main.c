@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "ext_tags.h"
+#include "tags.h"
+//#include "ext_tags.h"
 #include "eo_objects.h"
 #include "poly.h"
 #include "fibonacci.h"
@@ -11,7 +12,7 @@ int main() {
   eoAny* tmpAny = NULL;
   // Непосредственная датаризация объектов
 
-  init_eoInt (&int_obj, 10);
+  init_eoInt (&int_obj, NULL, 10);
   get_eoInt((eoAny*)&int_obj, tmpAny);
   get_eoIntAsString((eoAny*)&int_obj, tmpAny);
 
@@ -54,7 +55,7 @@ int main() {
   printf("\n--- Int addition test ---\n");
 
   eoInt int_obj2;
-  init_eoInt(&int_obj2, 101);
+  init_eoInt(&int_obj2, NULL, 101);
   init_eoIntAdd(&int_obj, &int_obj2);
   eoInt add_result;
   get_eoIntAdd((eoAny*)&int_obj, (eoAny*)&add_result);
@@ -102,48 +103,48 @@ int main() {
   printf("\n--- Fibonacci test ---\n");
 
   eoInt fiboResult;
-  init_eoInt(&fiboResult, 0);
+  init_eoInt(&fiboResult, NULL, 0);
   Fibonacci fibo;
   eoInt n;
 
-  init_eoInt(&n, 1);  // 0
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 1);  // 0
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 2);  // 1
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 2);  // 1
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 3);  // 2
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 3);  // 2
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 4);  // 3
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 4);  // 3
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 5);  // 5
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 5);  // 5
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 6);  // 6
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 6);  // 6
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);
 
-  init_eoInt(&n, 10);  // 10
-  init_Fibonacci(&fibo, &n);
+  init_eoInt(&n, NULL, 10);  // 10
+  init_Fibonacci(&fibo, NULL, &n);
   get_Fibonacci((eoAny*)&fibo, (eoAny*)&fiboResult);
   get_eoInt((eoAny*)&fiboResult, tmpAny);
   get_eoIntAsString((eoAny*)&fiboResult, tmpAny);

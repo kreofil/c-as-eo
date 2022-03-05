@@ -4,9 +4,38 @@
 #include "poly.h"
 
 //==============================================================================
+// Функции обобщенного объекта eoAny
+
+// Установка признака объекта
+void set_tag(eoAny* obj, Tag tag) {
+  obj->tag = tag;
+}
+// Установка указателя на родительский объект
+void set_parent(eoAny* child, eoAny* parent) {
+  child->parent = parent;
+}
+
+// Получение признака объекта
+Tag get_tag(eoAny* obj) {
+  return obj->tag;
+}
+
+// Получение родителя объекта
+eoAny* get_parent(eoAny* obj) {
+  return obj->parent;
+}
+
+//==============================================================================
 // Инициализация существующего целочисленного объекта
-void init_eoInt(eoInt* obj, int value) {
-  obj->tag = tagInt;
+void init_eoInt(eoInt* obj, eoAny* parent, int value) {
+  ((eoAny*)obj)->tag = tagInt;
+  ((eoAny*)obj)->parent = parent;
+  obj->value = value;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Установка значения в целочисленном объекте
+void set_eoInt_value(eoInt* obj, int value) {
   obj->value = value;
 }
 
@@ -76,7 +105,7 @@ void get_eoIntLess(eoAny* obj, eoAny* result) {
 //==============================================================================
 // Инициализация существующего действительного объекта двойной точности
 void init_eoDouble(eoDouble* obj, double value) {
-  obj->tag = tagDouble;
+  ((eoAny*)obj)->tag = tagDouble;
   obj->value = value;
 }
 

@@ -11,6 +11,6 @@ void get_eoAny(eoAny* obj, eoAny* result);
 
 //==============================================================================
 // Объявление обобщенной функции get_eoAnyAsString
-eoAny* get_eoAnyAsString(eoAny* obj, eoAny* result);
+void get_eoAnyAsString(eoAny* obj, eoAny* result);
 
 #endif  // _poly_

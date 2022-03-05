@@ -1,5 +1,6 @@
 // Реализация функций, имитирующих объект, вычисляющий число Фибоначчи
 
+#include <stddef.h>
 #include "fibonacci.h"
 
 //==============================================================================
@@ -20,7 +21,9 @@ typedef struct FibonacciSmall {
 */
 
 // Инициализация
-void init_FibonacciSmall(struct Fibonacci* obj, eoInt* n) {
+void init_FibonacciSmall(FibonacciSmall* obj, eoAny* parent, eoInt* n)
+{
+  set_parent((eoAny*)obj, parent);
   obj->n = n;
 }
 
@@ -29,7 +32,7 @@ void init_FibonacciSmall(struct Fibonacci* obj, eoInt* n) {
 void get_FibonacciSmall(eoAny* obj, eoAny* result) {
   // Константа 2
   eoInt val_2;
-  init_eoInt(&val_2, 2);
+  init_eoInt(&val_2, NULL, 2);
   init_eoIntEq(((Fibonacci*)obj)->n, &val_2);
   // Получение результата сравнения n == 2
   eoInt cmp_eqResult;
@@ -38,7 +41,7 @@ void get_FibonacciSmall(eoAny* obj, eoAny* result) {
   // с использованием обычного if вместо объекта
   // Это наиболее простая и прямая реализация.
   if(cmp_eqResult.value) {
-    init_eoInt((eoInt*)result, 1);
+    init_eoInt((eoInt*)result, NULL, 1);
   } else {
     result = (eoAny*)((Fibonacci*)obj)->n;
   }
@@ -62,7 +65,10 @@ typedef struct FibonacciRec {
 */
 
 // Инициализация
-void init_FibonacciRec(struct Fibonacci* obj, eoInt* n, eoInt* minus1, eoInt* minus2) {
+void init_FibonacciRec(FibonacciRec* obj,
+                       eoAny* parent, eoInt* n, eoInt* minus1, eoInt* minus2)
+{
+  set_parent((eoAny*)obj, parent);
   ((Fibonacci*)obj)->rec.n = n;
   ((Fibonacci*)obj)->rec.minus1 = minus1;
   ((Fibonacci*)obj)->rec.minus2 = minus2;
@@ -73,7 +79,7 @@ void init_FibonacciRec(struct Fibonacci* obj, eoInt* n, eoInt* minus1, eoInt* mi
 void get_FibonacciRec(eoAny* obj, eoAny* result) {
   // Константа 3
   eoInt val_3;
-  init_eoInt(&val_3, 3);
+  init_eoInt(&val_3, NULL, 3);
   init_eoIntEq(((Fibonacci*)obj)->rec.n, &val_3);
   // Получение результата сравнения n == 3
   eoInt cmp_eqResult;
@@ -89,16 +95,16 @@ void get_FibonacciRec(eoAny* obj, eoAny* result) {
     // rec (n.sub 1) (minus1.add minus2) minus1
     // Константа 1
     eoInt val_1;
-    init_eoInt(&val_1, 1);
+    init_eoInt(&val_1, NULL, 1);
     eoInt arg1;
     init_eoIntSub(((Fibonacci*)obj)->rec.n, &val_1);
     get_eoIntSub((eoAny*)((Fibonacci*)obj)->rec.n, (eoAny*)&arg1);
     eoInt arg2;
     init_eoIntAdd(((Fibonacci*)obj)->rec.minus1, (((Fibonacci*)obj)->rec.minus2));
     get_eoIntAdd((eoAny*)((Fibonacci*)obj)->rec.minus1, (eoAny*)&arg2);
-    Fibonacci fib;
-    init_FibonacciRec(&fib, &arg1, &arg2, ((Fibonacci*)obj)->rec.minus1);
-    get_FibonacciRec((eoAny*)&fib, result);
+    FibonacciRec fr;
+    init_FibonacciRec(&fr, NULL, &arg1, &arg2, ((Fibonacci*)obj)->rec.minus1);
+    get_FibonacciRec((eoAny*)&fr, result);
   }
 }
 
@@ -121,7 +127,8 @@ typedef struct Fibonacci {
 */
 
 // Инициализация
-void init_Fibonacci(Fibonacci* obj, eoInt* n) {
+void init_Fibonacci(Fibonacci* obj, eoAny* parent, eoInt* n) {
+  set_parent((eoAny*)obj, NULL);
   obj->tag = tagFibonacci;
   obj->n = n;
 }
@@ -131,7 +138,7 @@ void init_Fibonacci(Fibonacci* obj, eoInt* n) {
 void get_Fibonacci(eoAny* obj, eoAny* result) {
   // Константа 3
   eoInt val_3;
-  init_eoInt(&val_3, 3);
+  init_eoInt(&val_3, NULL, 3);
   init_eoIntLess(((Fibonacci*)obj)->n, &val_3);
   // Получение результата сравнения n < 3
   eoInt cmp_eqResult;
@@ -141,15 +148,16 @@ void get_Fibonacci(eoAny* obj, eoAny* result) {
   // Это наиболее простая и прямая реализация.
   if(cmp_eqResult.value) {
     // small n
-    init_FibonacciSmall((Fibonacci*)obj, ((Fibonacci*)obj)->n);
+    init_FibonacciSmall(
+      &(((Fibonacci*)obj)->small), (eoAny*)obj, ((Fibonacci*)obj)->n);
     get_FibonacciSmall(obj, result);
   } else {
     // rec n 1 1
     // Константа 1
     eoInt val_1;
-    init_eoInt(&val_1, 1);
-    Fibonacci fib;
-    init_FibonacciRec(&fib, ((Fibonacci*)obj)->n, &val_1, &val_1);
-    get_FibonacciRec((eoAny*)&fib, result);
+    init_eoInt(&val_1, NULL, 1);
+    FibonacciRec fr;
+    init_FibonacciRec(&fr, NULL, ((Fibonacci*)obj)->n, &val_1, &val_1);
+    get_FibonacciRec((eoAny*)&fr, result);
   }
 }

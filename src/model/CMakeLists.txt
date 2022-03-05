@@ -8,8 +8,9 @@ cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 set(SOURCE_FILES
   # headers
   eo_objects.h
-  tags.h
-  ext_tags.h
+  enum_tags.h
+  #tags.h
+  #ext_tags.h
   poly.h
   fibonacci.h
 

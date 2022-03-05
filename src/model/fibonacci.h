@@ -1,7 +1,8 @@
 #ifndef _fibonacci_
 #define _fibonacci_
 
-#include "ext_tags.h"
+//#include "ext_tags.h"
+#include "tags.h"
 #include "eo_objects.h"
 
 // Вычисление числа Фибоначчи с использованием модели EO
@@ -34,11 +35,12 @@ struct Fibonacci;   // Предварительное объявление вн�
 //------------------------------------------------------------------------------
 // Модель объекта FibonacciSmall
 typedef struct FibonacciSmall {
+  eoAny base;   // базовая часть для идентификации и связи объектов
   eoInt* n; // передаваемое значение
 } FibonacciSmall;
 
 // Инициализация
-void init_FibonacciSmall(struct Fibonacci* obj, eoInt* n);
+void init_FibonacciSmall(FibonacciSmall* obj, eoAny* parent, eoInt* n);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
 void get_FibonacciSmall(eoAny* obj, eoAny* result);
@@ -46,6 +48,7 @@ void get_FibonacciSmall(eoAny* obj, eoAny* result);
 //------------------------------------------------------------------------------
 // Модель объекта FibonacciRec
 typedef struct FibonacciRec {
+  eoAny base;   // базовая часть для идентификации и связи объектов
   eoInt* n; // передаваемое значение
   // Дополнительные атрибуты
   eoInt* minus1;
@@ -53,7 +56,8 @@ typedef struct FibonacciRec {
 } FibonacciRec;
 
 // Инициализация
-void init_FibonacciRec(struct Fibonacci* obj, eoInt* n, eoInt* minus1, eoInt* minus2);
+void init_FibonacciRec(FibonacciRec* obj,
+                       eoAny* parent, eoInt* n, eoInt* minus1, eoInt* minus2);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
 void get_FibonacciRec(eoAny* obj, eoAny* result);
@@ -61,6 +65,7 @@ void get_FibonacciRec(eoAny* obj, eoAny* result);
 //------------------------------------------------------------------------------
 // Объект, определяющий функцию Фибоначчи
 typedef struct Fibonacci {
+  eoAny base;   // базовая часть для идентификации и связи объектов
   int tag; // уникальный признак внешнего объекта
 
   eoInt* n; // передаваемое значение
@@ -69,7 +74,7 @@ typedef struct Fibonacci {
 } Fibonacci;
 
 // Инициализация
-void init_Fibonacci(Fibonacci* obj, eoInt* n);
+void init_Fibonacci(Fibonacci* obj, eoAny* parent, eoInt* n);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
 void get_Fibonacci(eoAny* obj, eoAny* result);

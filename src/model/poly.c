@@ -2,29 +2,36 @@
 // семантику EO
 
 #include <stdio.h>
-#include "ext_tags.h"
+#include "tags.h"
+//#include "ext_tags.h"
 #include "eo_objects.h"
 
 //==============================================================================
 // Определение обобщенной функции get_eoAny
 void get_eoAny(eoAny* obj, eoAny* result) {
-  if (obj->tag == tagInt) {
+  switch (obj->tag) {
+    case tagInt:
       get_eoInt(obj, result);
-  } else if (obj->tag == tagDouble) {
+      break;
+    case tagDouble:
       get_eoDouble(obj, result);
-  } else {
+      break;
+    default:
       printf("Error! Get action not defined. Incorrect tag = %d\n", obj->tag);
   }
 }
 
 //==============================================================================
 // Определение обобщенной функции get_eoAnyAsString
-eoAny* get_eoAnyAsString(eoAny* obj, eoAny* result) {
-  if (obj->tag == tagInt) {
+void get_eoAnyAsString(eoAny* obj, eoAny* result) {
+  switch (obj->tag) {
+    case tagInt:
       get_eoIntAsString(obj, result);
-  } else if (obj->tag == tagDouble) {
+      break;
+    case tagDouble:
       get_eoDoubleAsString(obj, result);
-  } else {
+      break;
+    default:
       printf("Error! aString not defined. Incorrect tag = %d.\n", obj->tag);
   }
 }
