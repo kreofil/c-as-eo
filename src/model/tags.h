@@ -1,15 +1,16 @@
-#ifndef _tags_
-#define _tags_
+#ifndef _enum_tags_
+#define _enum_tags_
 
-// Числовые константы, задающие значения тегов объектов
+// Задание тэгов перечислимым типом
 
-// Атомарные объекты
-const int tagAny = 0;
-const int tagInt = 1;
-const int tagDouble = 2;
-const int tagSeq = 3;
+typedef enum Tag {
+  tagAny,
+  tagInt,
+  tagDouble,
+  tagSeq,
 
-// Объекты, определяемые пользователем
-const int tagFibonacci = 101;
+  // Объекты, определяемые пользователем
+  tagFibonacci,
+} Tag;
 
-#endif  // _tags_
+#endif  // _enum_tags_
