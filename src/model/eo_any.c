@@ -29,16 +29,39 @@ EoAny* get_parent(EoAny* obj) {
   return obj->head.parent;
 }
 
+//------------------------------------------------------------------------------
 // Установка указателя на функцию датаризации
-void set_eval(EoAny* obj, int (*eval)(struct EoAny*, struct EoAny*)) {
+void set_eval(EoAny* obj, unsigned (*eval)(struct EoAny*, struct EoAny*)) {
   obj->head.eval = eval;
+}
+
+//------------------------------------------------------------------------------
+// Установка указателя на функцию получения размера объекта
+void set_size(EoAny* obj, unsigned (*size)(void)) {
+  obj->head.size = size;
+}
+
+//------------------------------------------------------------------------------
+// Привязка операнда-объекта к любому объекту, указанному в качестве первого
+// операнда.Позволяет не плодить данную сущность для каждого вида объектов и
+// подобъектов.
+void bind_Eo(EoAny* objDst, EoAny* objSrc) {
+  objDst = objSrc;
 }
 
 //------------------------------------------------------------------------------
 // Иницилизация головной части любого объекта
 void init_head(EoAny* obj, Tag tag, EoAny* parent,
-               int (*eval)(struct EoAny*, struct EoAny*)) {
+               unsigned (*eval)(struct EoAny*, struct EoAny*),
+               unsigned  (*size)(void)) {
   set_tag(obj, tag);
   set_parent(obj, parent);
   set_eval(obj, eval);
+  set_size(obj, size);
+}
+
+//------------------------------------------------------------------------------
+// Возрат размера объекта
+unsigned size_EoAny(void) {
+  return 0;
 }

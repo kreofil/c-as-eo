@@ -22,13 +22,14 @@ typedef struct FibonacciSmall {
 
 // Инициализация
 void init_FibonacciSmall(FibonacciSmall* obj, EoAny* parent, EoInt* n) {
-  init_head((EoAny*)obj, tagFibonacci, parent, eval_FibonacciSmall);
+  init_head((EoAny*)obj, tagFibonacci, parent,
+            eval_FibonacciSmall, size_EoInt);
   obj->n = n;
 }
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_FibonacciSmall(EoAny* obj, EoAny* result) {
+unsigned eval_FibonacciSmall(EoAny* obj, EoAny* result) {
   EoInt val_2;    // константа  = 2
   init_EoInt(&val_2, NULL, 2);
   bind_EoIntEq(((Fibonacci*)obj)->n, &val_2);
@@ -68,6 +69,8 @@ void init_FibonacciRec(FibonacciRec* obj,
                        EoAny* parent, EoInt* n, EoInt* minus1, EoInt* minus2)
 {
   set_parent((EoAny*)obj, parent);
+  set_eval((EoAny*)obj, eval_FibonacciRec);
+  set_size((EoAny*)obj, size_EoInt);
   ((Fibonacci*)obj)->rec.n = n;
   ((Fibonacci*)obj)->rec.minus1 = minus1;
   ((Fibonacci*)obj)->rec.minus2 = minus2;
@@ -75,7 +78,7 @@ void init_FibonacciRec(FibonacciRec* obj,
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_FibonacciRec(EoAny* obj, EoAny* result) {
+unsigned eval_FibonacciRec(EoAny* obj, EoAny* result) {
   // Константа 3
   EoInt val_3;
   init_EoInt(&val_3, NULL, 3);
@@ -129,13 +132,15 @@ typedef struct Fibonacci {
 // Инициализация
 void init_Fibonacci(Fibonacci* obj, EoAny* parent, EoInt* n) {
   set_parent((EoAny*)obj, NULL);
+  set_eval((EoAny*)obj, eval_EoInt);
+  set_size((EoAny*)obj, size_EoInt);
   obj->tag = tagFibonacci;
   obj->n = n;
 }
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_Fibonacci(EoAny* obj, EoAny* result) {
+unsigned eval_Fibonacci(EoAny* obj, EoAny* result) {
   // Константа 3
   EoInt val_3;
   init_EoInt(&val_3, NULL, 3);

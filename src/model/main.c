@@ -47,7 +47,7 @@ int main() {
   eval_EoDouble((EoAny*)&double_obj, tmpAny);
 
   eval_EoIntAsString((EoAny*)&int_obj, tmpAny);
-  eval_EoIntAsString((EoAny*)&double_obj, tmpAny);
+  eval_EoDoubleAsString((EoAny*)&double_obj, tmpAny);
 
   // Проверка сложения
   printf("\n--- Int addition test ---\n");
@@ -105,42 +105,49 @@ int main() {
   Fibonacci fibo;
   EoInt n;
 
-  init_EoInt(&n, NULL, 1);  // 0
+  printf("fibo(1): ");
+  init_EoInt(&n, NULL, 1);  // 1
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
-  init_EoInt(&n, NULL, 2);  // 1
+  printf("fibo(2): ");
+  init_EoInt(&n, NULL, 2);  // 2
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
-  init_EoInt(&n, NULL, 3);  // 2
+  printf("fibo(3): ");
+  init_EoInt(&n, NULL, 3);  // 3
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
-  init_EoInt(&n, NULL, 4);  // 3
+  printf("fibo(4): ");
+  init_EoInt(&n, NULL, 4);  // 4
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
+  printf("fibo(5): ");
   init_EoInt(&n, NULL, 5);  // 5
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
+  printf("fibo(6): ");
   init_EoInt(&n, NULL, 6);  // 6
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);
   eval_EoInt((EoAny*)&fiboResult, tmpAny);
   eval_EoIntAsString((EoAny*)&fiboResult, tmpAny);
 
+  printf("fibo(10): ");
   init_EoInt(&n, NULL, 10);  // 10
   init_Fibonacci(&fibo, NULL, &n);
   eval_Fibonacci((EoAny*)&fibo, (EoAny*)&fiboResult);

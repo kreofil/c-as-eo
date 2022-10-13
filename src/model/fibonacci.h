@@ -41,7 +41,7 @@ typedef struct FibonacciSmall {
 void init_FibonacciSmall(FibonacciSmall* obj, EoAny* parent, EoInt* n);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_FibonacciSmall(EoAny* obj, EoAny* result);
+unsigned eval_FibonacciSmall(EoAny* obj, EoAny* result);
 
 //------------------------------------------------------------------------------
 // Модель объекта FibonacciRec
@@ -58,7 +58,7 @@ void init_FibonacciRec(FibonacciRec* obj,
                        EoAny* parent, EoInt* n, EoInt* minus1, EoInt* minus2);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_FibonacciRec(EoAny* obj, EoAny* result);
+unsigned eval_FibonacciRec(EoAny* obj, EoAny* result);
 
 //------------------------------------------------------------------------------
 // Объект, определяющий функцию Фибоначчи
@@ -75,7 +75,7 @@ typedef struct Fibonacci {
 void init_Fibonacci(Fibonacci* obj, EoAny* parent, EoInt* n);
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-int eval_Fibonacci(EoAny* obj, EoAny* result);
+unsigned eval_Fibonacci(EoAny* obj, EoAny* result);
 
 
 #endif  // _fibonacci_

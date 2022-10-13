@@ -22,5 +22,5 @@ typedef struct EoSeq {
 // Инициализация, связана с передачей массива объектов и его размера
 void init_EoSeq(EoSeq* obj, EoAny* parent, EoAny** objSeq, int length);
 // Получение (датаризация) последовательности объектов
-int eval_EoSeq(EoAny* obj, EoAny* result);
+unsigned eval_EoSeq(EoAny* obj, EoAny* result);
 

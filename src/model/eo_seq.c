@@ -7,11 +7,12 @@
 void init_EoSeq(EoSeq* obj, EoAny* parent, EoAny** objSeq, int length) {
   obj->length = length;
   obj->objSeq = objSeq;
-  init_head((EoAny*)obj, tagSeq, parent, eval_EoSeq); // EoInt
+  init_head((EoAny*)obj, tagSeq, parent,
+            eval_EoSeq, size_EoAny); // EoInt
 }
 
 // Получение (датаризация) последовательности объектов
-int eval_EoSeq(EoAny* obj, EoAny* result) {
+unsigned eval_EoSeq(EoAny* obj, EoAny* result) {
 EoAny* tmpAny = NULL;
   for (int i = 0; i < ((EoSeq*)obj)->length; ++i) {
     ((EoSeq*)obj)->objSeq[i]->head.eval(((EoSeq*)obj)->objSeq[i], result);

@@ -27,8 +27,11 @@ typedef struct EoDouble {
 void init_EoDouble(EoDouble* obj, EoAny* parent, double value);
 
 // Получение (датаризация) действительного объекта
-int eval_EoDouble(EoAny* obj, EoAny* result);
+unsigned eval_EoDouble(EoAny* obj, EoAny* result);
 // Получение (датаризация) строки для действительного объекта
-int eval_EoDoubleAsString(EoAny* obj, EoAny* result);
+unsigned eval_EoDoubleAsString(EoAny* obj, EoAny* result);
+
+// Возрат размера объекта
+unsigned size_EoDouble(void);
 
 #endif  // _eo_double_

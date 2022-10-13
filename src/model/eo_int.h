@@ -75,16 +75,19 @@ void bind_EoIntEq(EoInt* obj, EoInt* opd2);
 void bind_EoIntLess(EoInt* obj, EoInt* opd2);
 
 // Получение (датаризация) целочисленного объекта
-int eval_EoInt(EoAny* obj, EoAny* result);
+unsigned eval_EoInt(EoAny* obj, EoAny* result);
 // Получение (датаризация) строки для целочисленного объекта
-int eval_EoIntAsString(EoAny* obj, EoAny* result);
+unsigned eval_EoIntAsString(EoAny* obj, EoAny* result);
 // Сложение целочисленного объекта с объектом, привязанным к add
-int eval_EoIntAdd(EoAny* obj, EoAny* result);
+unsigned eval_EoIntAdd(EoAny* obj, EoAny* result);
 // Вычитание из целочисленного объекта объекта, привязанного к sub
-int eval_EoIntSub(EoAny* obj, EoAny* result);
+unsigned eval_EoIntSub(EoAny* obj, EoAny* result);
 // Сравнение eq
-int eval_EoIntEq(EoAny* obj, EoAny* result);
+unsigned eval_EoIntEq(EoAny* obj, EoAny* result);
 // Сравнение less
-int eval_EoIntLess(EoAny* obj, EoAny* result);
+unsigned eval_EoIntLess(EoAny* obj, EoAny* result);
+
+// Возрат размера объекта
+unsigned size_EoInt(void);
 
 #endif  // _eo_int_
