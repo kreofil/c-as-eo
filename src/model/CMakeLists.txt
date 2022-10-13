@@ -7,17 +7,19 @@ cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 # Установка переменной со списком исходников
 set(SOURCE_FILES
   # headers
-  eo_objects.h
   tags.h
-  #tags.h
-  #ext_tags.h
-  poly.h
+  eo_any.h
+  eo_int.h
+  eo_double.h
+  eo_seq.h
   fibonacci.h
 
   #sources
   main.c
-  eo_objects.c
-  poly.c
+  eo_any.c
+  eo_int.c
+  eo_double.c
+  eo_seq.c
   fibonacci.c
 )
 

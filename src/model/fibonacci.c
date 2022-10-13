@@ -21,30 +21,29 @@ typedef struct FibonacciSmall {
 */
 
 // Инициализация
-void init_FibonacciSmall(FibonacciSmall* obj, eoAny* parent, eoInt* n)
-{
-  set_parent((eoAny*)obj, parent);
+void init_FibonacciSmall(FibonacciSmall* obj, EoAny* parent, EoInt* n) {
+  init_head((EoAny*)obj, tagFibonacci, parent, eval_FibonacciSmall);
   obj->n = n;
 }
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-void get_FibonacciSmall(eoAny* obj, eoAny* result) {
-  // Константа 2
-  eoInt val_2;
-  init_eoInt(&val_2, NULL, 2);
-  init_eoIntEq(((Fibonacci*)obj)->n, &val_2);
+int eval_FibonacciSmall(EoAny* obj, EoAny* result) {
+  EoInt val_2;    // константа  = 2
+  init_EoInt(&val_2, NULL, 2);
+  bind_EoIntEq(((Fibonacci*)obj)->n, &val_2);
   // Получение результата сравнения n == 2
-  eoInt cmp_eqResult;
-  get_eoIntEq((eoAny*)(((Fibonacci*)obj)->n), (eoAny*)&cmp_eqResult);
+  EoInt cmp_eqResult;
+  eval_EoIntEq((EoAny*)(((Fibonacci*)obj)->n), (EoAny*)&cmp_eqResult);
   // выбор последовательности обработки по условию
   // с использованием обычного if вместо объекта
   // Это наиболее простая и прямая реализация.
   if(cmp_eqResult.value) {
-    init_eoInt((eoInt*)result, NULL, 1);
+    init_EoInt((EoInt*)result, NULL, 1);
   } else {
-    result = (eoAny*)((Fibonacci*)obj)->n;
+    result = (EoAny*)((Fibonacci*)obj)->n;
   }
+  return 0;
 }
 
 //------------------------------------------------------------------------------
@@ -66,9 +65,9 @@ typedef struct FibonacciRec {
 
 // Инициализация
 void init_FibonacciRec(FibonacciRec* obj,
-                       eoAny* parent, eoInt* n, eoInt* minus1, eoInt* minus2)
+                       EoAny* parent, EoInt* n, EoInt* minus1, EoInt* minus2)
 {
-  set_parent((eoAny*)obj, parent);
+  set_parent((EoAny*)obj, parent);
   ((Fibonacci*)obj)->rec.n = n;
   ((Fibonacci*)obj)->rec.minus1 = minus1;
   ((Fibonacci*)obj)->rec.minus2 = minus2;
@@ -76,36 +75,37 @@ void init_FibonacciRec(FibonacciRec* obj,
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-void get_FibonacciRec(eoAny* obj, eoAny* result) {
+int eval_FibonacciRec(EoAny* obj, EoAny* result) {
   // Константа 3
-  eoInt val_3;
-  init_eoInt(&val_3, NULL, 3);
-  init_eoIntEq(((Fibonacci*)obj)->rec.n, &val_3);
+  EoInt val_3;
+  init_EoInt(&val_3, NULL, 3);
+  bind_EoIntEq(((Fibonacci*)obj)->rec.n, &val_3);
   // Получение результата сравнения n == 3
-  eoInt cmp_eqResult;
-  get_eoIntEq((eoAny*)(((Fibonacci*)obj)->rec.n), (eoAny*)&cmp_eqResult);
+  EoInt cmp_eqResult;
+  eval_EoIntEq((EoAny*)(((Fibonacci*)obj)->rec.n), (EoAny*)&cmp_eqResult);
   // выбор последовательности обработки по условию
   // с использованием обычного if вместо объекта
   // Это наиболее простая и прямая реализация.
   if(cmp_eqResult.value) {
     // minus1.add minus2
-    init_eoIntAdd(((Fibonacci*)obj)->rec.minus1, ((Fibonacci*)obj)->rec.minus2);
-    get_eoIntAdd((eoAny*)((Fibonacci*)obj)->rec.minus1, result);
+    bind_EoIntAdd(((Fibonacci*)obj)->rec.minus1, ((Fibonacci*)obj)->rec.minus2);
+    eval_EoIntAdd((EoAny*)((Fibonacci*)obj)->rec.minus1, result);
   } else {
     // rec (n.sub 1) (minus1.add minus2) minus1
     // Константа 1
-    eoInt val_1;
-    init_eoInt(&val_1, NULL, 1);
-    eoInt arg1;
-    init_eoIntSub(((Fibonacci*)obj)->rec.n, &val_1);
-    get_eoIntSub((eoAny*)((Fibonacci*)obj)->rec.n, (eoAny*)&arg1);
-    eoInt arg2;
-    init_eoIntAdd(((Fibonacci*)obj)->rec.minus1, (((Fibonacci*)obj)->rec.minus2));
-    get_eoIntAdd((eoAny*)((Fibonacci*)obj)->rec.minus1, (eoAny*)&arg2);
+    EoInt val_1;
+    init_EoInt(&val_1, NULL, 1);
+    EoInt arg1;
+    bind_EoIntSub(((Fibonacci*)obj)->rec.n, &val_1);
+    eval_EoIntSub((EoAny*)((Fibonacci*)obj)->rec.n, (EoAny*)&arg1);
+    EoInt arg2;
+    bind_EoIntAdd(((Fibonacci*)obj)->rec.minus1, (((Fibonacci*)obj)->rec.minus2));
+    eval_EoIntAdd((EoAny*)((Fibonacci*)obj)->rec.minus1, (EoAny*)&arg2);
     FibonacciRec fr;
     init_FibonacciRec(&fr, NULL, &arg1, &arg2, ((Fibonacci*)obj)->rec.minus1);
-    get_FibonacciRec((eoAny*)&fr, result);
+    eval_FibonacciRec((EoAny*)&fr, result);
   }
+  return 0;
 }
 
 //------------------------------------------------------------------------------
@@ -127,37 +127,37 @@ typedef struct Fibonacci {
 */
 
 // Инициализация
-void init_Fibonacci(Fibonacci* obj, eoAny* parent, eoInt* n) {
-  set_parent((eoAny*)obj, NULL);
+void init_Fibonacci(Fibonacci* obj, EoAny* parent, EoInt* n) {
+  set_parent((EoAny*)obj, NULL);
   obj->tag = tagFibonacci;
   obj->n = n;
 }
 
 // Получение (датаризация) целочисленного объекта
 // с передачей значения атрибута
-void get_Fibonacci(eoAny* obj, eoAny* result) {
+int eval_Fibonacci(EoAny* obj, EoAny* result) {
   // Константа 3
-  eoInt val_3;
-  init_eoInt(&val_3, NULL, 3);
-  init_eoIntLess(((Fibonacci*)obj)->n, &val_3);
+  EoInt val_3;
+  init_EoInt(&val_3, NULL, 3);
+  bind_EoIntLess(((Fibonacci*)obj)->n, &val_3);
   // Получение результата сравнения n < 3
-  eoInt cmp_eqResult;
-  get_eoIntLess((eoAny*)(((Fibonacci*)obj)->n), (eoAny*)&cmp_eqResult);
+  EoInt cmp_eqResult;
+  eval_EoIntLess((EoAny*)(((Fibonacci*)obj)->n), (EoAny*)&cmp_eqResult);
   // выбор последовательности обработки по условию
   // с использованием обычного if вместо объекта
   // Это наиболее простая и прямая реализация.
   if(cmp_eqResult.value) {
     // small n
     init_FibonacciSmall(
-      &(((Fibonacci*)obj)->small), (eoAny*)obj, ((Fibonacci*)obj)->n);
-    get_FibonacciSmall(obj, result);
+      &(((Fibonacci*)obj)->small), (EoAny*)obj, ((Fibonacci*)obj)->n);
+    eval_FibonacciSmall(obj, result);
   } else {
     // rec n 1 1
     // Константа 1
-    eoInt val_1;
-    init_eoInt(&val_1, NULL, 1);
+    EoInt val_1;
+    init_EoInt(&val_1, NULL, 1);
     FibonacciRec fr;
     init_FibonacciRec(&fr, NULL, ((Fibonacci*)obj)->n, &val_1, &val_1);
-    get_FibonacciRec((eoAny*)&fr, result);
+    eval_FibonacciRec((EoAny*)&fr, result);
   }
 }

@@ -6,8 +6,14 @@
 typedef enum Tag {
   tagAny,
   tagInt,
+  tagIntAsString,
+  tagIntAdd,
+  tagIntSub,
+  tagIntEq,
+  tagIntLess,
   tagDouble,
   tagSeq,
+  tagIf,
 
   // Объекты, определяемые пользователем
   tagFibonacci,
